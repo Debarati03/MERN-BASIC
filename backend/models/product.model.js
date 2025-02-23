@@ -15,7 +15,7 @@ const productSchema=mongoose.Schema({
     },
     
 },{
-timestamp:true //createdAt,updatedAt
+timestamps:true //createdAt,updatedAt
 });
 
 
