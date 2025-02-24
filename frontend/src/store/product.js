@@ -35,21 +35,34 @@ export const useProductStore = create((set) => ({
 		return { success: true, message: data.message };
 	},
 	updateProduct: async (pid, updatedProduct) => {
-		const res = await fetch(`http://localhost:5000/api/products/${pid}`, {
+		try {
+		  const res = await fetch(`http://localhost:5000/api/products/${pid}`, {
 			method: "PUT",
 			headers: {
-				"Content-Type": "application/json",
+			  "Content-Type": "application/json",
 			},
 			body: JSON.stringify(updatedProduct),
-		});
-		const data = await res.json();
-		if (!data.success) return { success: false, message: data.message };
-
-		// update the ui immediately, without needing a refresh
-		set((state) => ({
-			products: state.products.map((product) => (product._id === pid ? data.data : product)),
-		}));
-
-		return { success: true, message: data.message };
-	},
+		  });
+	
+		  const data = await res.json();
+		  console.log("Server response:", data);
+	
+		  if (!data.success) {
+			return { success: false, message: data.message };
+		  }
+	
+		  set((state) => {
+			const newProducts = state.products.map((product) =>
+			  product._id === pid ? { ...product, ...updatedProduct } : product
+			);
+			console.log("New products state:", newProducts);
+			return { products: newProducts };
+		  });
+	
+		  return { success: true, message: data.message };
+		} catch (error) {
+		  console.error("Error updating product:", error);
+		  return { success: false, message: "Failed to update product" };
+		}
+	  },
 }));
