@@ -1,4 +1,6 @@
 import  Product from '../models/product.model.js';
+import mongoose from "mongoose";
+
 
 export const createProducts=async (req, res) => {
     const product = req.body;
