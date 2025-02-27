@@ -17,12 +17,13 @@ const __dirname = path.resolve();
 
 const allowedOrigins = [
   "https://mern-basic-lc7u.onrender.com", // Deployed frontend
-  "http://localhost:5000/api/products", // Local frontend (if using React, default port is 3000)
+  "http://localhost:3000", // Local frontend
+  "http://localhost:5173"  // Local Vite frontend
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins, // Allow multiple origins
+    origin: allowedOrigins,
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
