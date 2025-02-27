@@ -15,11 +15,16 @@ const PORT =  process.env.PORT || 5000;
 const __dirname = path.resolve();
 
 
+const allowedOrigins = [
+  "https://mern-basic-lc7u.onrender.com", // Deployed frontend
+  "http://localhost:5000", // Local frontend (if using React, default port is 3000)
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: allowedOrigins, // Allow multiple origins
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
   })
 );
 
